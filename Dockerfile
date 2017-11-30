@@ -3,13 +3,13 @@ FROM alpine:3.6
 MAINTAINER Jean-Charles Sisk <jeancharles@gasbuddy.com>
 
 ARG GLIBC_VERSION=2.25-r0
-ARG CONCOURSE_VERSION=3.1.1
+ARG CONCOURSE_VERSION=3.2.1
 
 RUN mkdir -p /opt/concourse && \
     addgroup -S concourse && \
     adduser -SDh /opt/concourse -s /sbin/nologin -G concourse concourse
 
-RUN apk --no-cache add su-exec openssl dumb-init openssh-client bash findutils iptables
+RUN apk --no-cache add su-exec openssl dumb-init openssh-keygen findutils bash
 
 RUN TMPFILE=$(mktemp).apk KEYPATH=/etc/apk/keys/ PUBKEY=sgerrand.rsa.pub && \
     wget -P "${KEYPATH}" "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/${PUBKEY}" && \

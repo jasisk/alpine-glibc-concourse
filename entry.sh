@@ -27,10 +27,8 @@ key_path() {
 if [ "$1" = 'concourse' ]; then
   chown -R concourse:concourse /opt/concourse
   case "$2" in
-    worker)
-      exec /usr/bin/env "$@" ;;
     *)
-      exec su-exec concourse:concourse /usr/bin/env "$@"
+      su-exec concourse:concourse /usr/bin/env "$@"
   esac
 fi
 
@@ -56,7 +54,7 @@ case "$1" in
     }
     mkdir -p "${CONCOURSE_WORK_DIR:="${ROOT_DIR}/work"}"
     : ${CONCOURSE_TSA_WORKER_PRIVATE_KEY:="$(key_path ${WORKER_KEY_NAME})"}
-    export CONCOURSE_TSA_WORKER_PUBLIC_KEY CONCOURSE_WORK_DIR
+    export CONCOURSE_TSA_PUBLIC_KEY CONCOURSE_TSA_WORKER_PRIVATE_KEY CONCOURSE_WORK_DIR
     ;;
   *)
     exec "$@"
