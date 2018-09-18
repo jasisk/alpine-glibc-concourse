@@ -1,9 +1,9 @@
-FROM alpine:3.6
+FROM alpine:3.8
 
 MAINTAINER Jean-Charles Sisk <jeancharles@gasbuddy.com>
 
-ARG GLIBC_VERSION=2.25-r0
-ARG CONCOURSE_VERSION=3.2.1
+ARG GLIBC_VERSION=2.27-r0
+ARG CONCOURSE_VERSION=4.0.0
 
 RUN mkdir -p /opt/concourse && \
     addgroup -S concourse && \
